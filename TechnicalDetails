@@ -1,3 +1,16 @@
 Site - https://chat2188-developer-edition.ap8.force.com/nutanixEasyMovieSearch
 
+Parent Component - movieSearch
+Child Component - ratingCmp
 
+Search String As per Webservice API Response - 'Guardians of the Galaxy Vol. 2'
+
+Developed 95% of App with only lwc.
+  An apex class is used to create the customer feedback record as the interface import { createRecord } from 'lightning/uiRecordApi' is not supported in public site. 
+  As an Alternate solution <Lightning-record-form could be used, but there were technical  challenges in achieving the given requirment. For example,
+  Ask - next button should appear as soon as all the fields are filled in. 
+  Challenge - <Lightning-record-Form>,values of all the fields will be available only after clicking submit button
+ 
+ Challenges like above forced to use the class to save the user feedback
+ 
+  
