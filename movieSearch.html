@@ -1,0 +1,114 @@
+<template>
+
+    <template if:true={showPage1}>
+        <div class="slds-grid slds-wrap">
+            <lightning-card title="What do you want to Watch?">
+                <div class="slds-col slds-size_1-of-1 slds-p-around_medium">
+                    <img
+                    src="https://s.studiobinder.com/wp-content/uploads/2019/06/Best-M-Night-Shyamalan-Movies-and-Directing-Style-StudioBinder.jpg" />
+                    <p class="slds-p-horizontal_small"></p>
+                </div>
+            </lightning-card>
+            <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                    <lightning-input value={movieStr} onchange={endPointUrl} label="Search Movie with …" placeholder="Movie or Series Name....">
+                    </lightning-input>
+                    
+            </div>
+            <div class="slds-col slds-size_1-of-2" style="margin-top:38px">
+                <lightning-button variant="brand" label="Search" onclick={fetchMovieDetails}>
+                </lightning-button>
+            </div>
+
+        </div>
+
+    <div class="slds-grid slds-wrap">
+
+            <div class="slds-col slds-size_1-of-3">
+            <span>
+                <template if:true={datafound}>
+                    <lightning-card title="">
+                        <p></p>
+                        <h1>{showval.Title}<br /></h1>
+                        <div class="card">Year: {showval.Year}<br /></div>
+                        <div class="card">Genre: {showval.Genre}<br /></div>
+                        <div class="card">Languages: {showval.Language}</div>
+                        <div class="card">Awards: {showval.Awards}</div>
+                        <div class="card">Writer:{showval.Writer}</div>
+                        <div class="card">Actors: {showval.Actors}<br /></div>
+                        <div class="card">Plot: {showval.Plot}<br /></div>
+                        <div class="card rating">Ratings:</div>
+                        <template for:each={showval.Ratings} for:item="rec" for:index="index">
+                            <p key={rec.Source}></p>
+                            <div key={rec.Source} class="card">
+                                {rec.Source}: {rec.Value}
+                                <lightning-progress-ring key={rec.Source} value={rec.newValue} size="large">
+                                </lightning-progress-ring>
+                            </div>
+                        </template>
+                        <lightning-radio-group variant="label-hidden" name="radioGroup" options={options} value={value}  onchange={handleRadioChange}>
+                        </lightning-radio-group>
+                        <template if:true={backupimg}>
+                            
+                            <img
+                                src="https://s.studiobinder.com/wp-content/uploads/2019/06/Best-M-Night-Shyamalan-Movies-and-Directing-Style-StudioBinder.jpg" />
+                        </template>
+                        <template if:false={backupimg}><img src={showval.Poster} /></template>
+                    </lightning-card>
+                </template>
+                <template if:true={nodata}>
+                    <lightning-card title="Movie Not Found. Please Check Spelling"></lightning-card>
+                </template>
+            </span>
+            </div>
+            <div class="slds-col slds-size_1-of-3"></div>
+            <div class="slds-col slds-size_1-of-3"></div>
+    </div>
+</template>
+<template if:true={showPage2}>
+    <lightning-card title="">
+        <lightning-layout>
+            <lightning-layout-item size="6">
+
+                <!-- Displaying fields to get information. -->
+                <template if:true={showPage2Part1}>
+                    <template if:false={page2Part1DataFilled}>
+                        <div style="color:red"> All The fields are Mandatory</div>
+                   </template>
+                    <lightning-input class="slds-p-around_medium name" label="Name" name="movieFeedbackName" 
+                        onchange={nameChangedHandler}></lightning-input>
+                    <lightning-input class="slds-p-around_medium email" label="Email" type= "email" name="email" 
+                        onchange={emailChangedHandler}></lightning-input>
+                    <lightning-input class="slds-p-around_medium mobile" label="Mobile Number" type="tel" name="mobileNumber" 
+                        onchange={phoneChangedHandler}></lightning-input>
+                    <lightning-input class="slds-p-around_medium date" label="Movie Watching Date" type="date" name="movieWatchingDate" 
+                        onchange={dateChangedHandler}></lightning-input>
+    
+                    <br/>
+                </template>
+                <template if:true={showPage2Part2}>
+                    <template if:false={page2Part2DataFilled}>
+                        <div style="color:red"> All The fields are Mandatory</div>
+                   </template>
+                    <div class="slds-p-around_medium">
+                        <p style="padding-left:18px">Rating</p><br/>
+                        <c-rating-cmp onratingevent={handleRating}></c-rating-cmp>
+                    </div><br/>
+                    <div class="slds-p-around_medium">
+                        <lightning-textarea class="slds-p-around_medium feedback" type="text" name="feedbackInfo" label="Feedback Info." onchange={feedbackChangedHandler}></lightning-textarea>
+         
+                    </div>
+                </template>
+                <template if:true={enableSubmitButton}>
+                    <lightning-button class="slds-m-left_x-small" label="Submit" variant="brand" 
+                        onclick={Submit}></lightning-button>
+                </template>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>
+<template if:true={showNextButton}>
+    <div class="slds-col slds-size_1-of-3 slds-align_absolute-center" style="height:5rem">
+        <lightning-button variant="brand" label="Next" title="Next" onclick={navigateUserDetailsPage} class="slds-m-left_x-small"></lightning-button>
+    </div>
+    </template>
+</template>
