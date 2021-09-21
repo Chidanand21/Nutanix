@@ -1,0 +1,16 @@
+<apex:page showHeader="false" standardStylesheets="false">
+    <apex:includeLightning />
+    <div id="movieSearch" />
+    <script>
+        $Lightning.use("c:EasyMovieSearch", function() {
+            $Lightning.createComponent(
+                "c:movieSearch",
+                {msg: "Easy Movie Search LWC."},
+                "movieSearch",
+                function(cmp) {
+                    console.log('LWC Component Created.');
+                }
+            );
+        });
+    </script>
+</apex:page>
